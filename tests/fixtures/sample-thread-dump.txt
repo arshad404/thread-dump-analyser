@@ -1,0 +1,76 @@
+Full thread dump OpenJDK 64-Bit Server VM (21.0.1+12-LTS mixed mode, sharing):
+
+"http-nio-8080-exec-1" #42 daemon prio=5 os_prio=0 cpu=10.00ms elapsed=3600.00s tid=0x00007f0001 nid=0x0001 waiting on condition [0x00007fa001]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000006c1000001> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1703)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:458)
+	at org.apache.tomcat.util.threads.TaskQueue.poll(TaskQueue.java:169)
+	at org.apache.tomcat.util.threads.TaskQueue.poll(TaskQueue.java:25)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:702)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:833)
+
+"http-nio-8080-exec-2" #43 daemon prio=5 os_prio=0 cpu=10.00ms elapsed=3600.00s tid=0x00007f0002 nid=0x0002 waiting on condition [0x00007fa002]
+   java.lang.Thread.State: TIMED_WAITING (parking)
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x00000006c1000001> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+	at java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:458)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:702)
+	at java.lang.Thread.run(Thread.java:833)
+
+"my-search-worker-1" #100 daemon prio=5 os_prio=0 tid=0x00007f0010 nid=0x0010 runnable [0x00007fa010]
+   java.lang.Thread.State: RUNNABLE
+	at com.example.search.client.SearchClient.search(OpenSearchClient.java:88)
+	at com.example.search.service.SearchService.executeQuery(SearchService.java:123)
+	at com.example.search.service.SearchService.search(SearchService.java:80)
+	at java.lang.Thread.run(Thread.java:833)
+
+"my-search-worker-2" #101 daemon prio=5 os_prio=0 tid=0x00007f0011 nid=0x0011 runnable [0x00007fa011]
+   java.lang.Thread.State: RUNNABLE
+	at com.example.search.client.SearchClient.search(OpenSearchClient.java:88)
+	at com.example.search.service.SearchService.executeQuery(SearchService.java:123)
+	at com.example.search.service.SearchService.search(SearchService.java:80)
+	at java.lang.Thread.run(Thread.java:833)
+
+"my-search-worker-3" #102 daemon prio=5 os_prio=0 tid=0x00007f0012 nid=0x0012 in Object.wait() [0x00007fa012]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Object.java:552)
+	- waiting on <0x00000006c2000001> (a java.util.concurrent.LinkedBlockingQueue)
+	at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:435)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+	at java.lang.Thread.run(Thread.java:833)
+
+"reactor-http-nio-1" #200 daemon prio=5 os_prio=0 tid=0x00007f0020 nid=0x0020 runnable [0x00007fa020]
+   java.lang.Thread.State: RUNNABLE
+	at sun.nio.ch.EPoll.wait(Native Method)
+	at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:118)
+	at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:129)
+	at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:146)
+	at io.netty.channel.nio.NioEventLoop.select(NioEventLoop.java:879)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:526)
+	at java.lang.Thread.run(Thread.java:833)
+
+"scheduler-1" #300 daemon prio=5 os_prio=0 tid=0x00007f0030 nid=0x0030 waiting on condition [0x00007fa030]
+   java.lang.Thread.State: TIMED_WAITING (sleeping)
+	at java.lang.Thread.sleep(Native Method)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1073)
+	at java.lang.Thread.run(Thread.java:833)
+
+"GC Thread#0" os_prio=0 cpu=450.00ms elapsed=10000.00s tid=0x00007f00a0 nid=0xa0 runnable
+
+"Finalizer" #3 daemon prio=8 os_prio=0 tid=0x00007f00b0 nid=0xb0 in Object.wait() [0x00007fa0b0]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Object.java:552)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:155)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:176)
+	at java.lang.ref.Finalizer$FinalizerThread.run(Finalizer.java:172)

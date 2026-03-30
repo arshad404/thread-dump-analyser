@@ -1,0 +1,37 @@
+Full thread dump OpenJDK 64-Bit Server VM (21.0.1+12-LTS mixed mode):
+
+"indexer-worker-1" #10 daemon prio=5 os_prio=0 tid=0x00007f1001 nid=0x1001 waiting for monitor entry [0x00007fb001]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at com.example.indexer.ResourceA.acquire(LockA.java:42)
+	- waiting to lock <0x00000006d0000001> (a java.util.concurrent.locks.ReentrantLock)
+	- locked <0x00000006d0000002> (a java.util.concurrent.locks.ReentrantLock)
+	at java.lang.Thread.run(Thread.java:833)
+
+"indexer-worker-2" #11 daemon prio=5 os_prio=0 tid=0x00007f1002 nid=0x1002 waiting for monitor entry [0x00007fb002]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at com.example.indexer.ResourceB.acquire(LockB.java:55)
+	- waiting to lock <0x00000006d0000002> (a java.util.concurrent.locks.ReentrantLock)
+	- locked <0x00000006d0000001> (a java.util.concurrent.locks.ReentrantLock)
+	at java.lang.Thread.run(Thread.java:833)
+
+Found one Java-level deadlock:
+=============================
+"indexer-worker-1":
+  waiting to lock monitor 0x00000006d0000001 (object 0x00000006d0000001, a java.util.concurrent.locks.ReentrantLock),
+  which is held by "indexer-worker-2"
+"indexer-worker-2":
+  waiting to lock monitor 0x00000006d0000002 (object 0x00000006d0000002, a java.util.concurrent.locks.ReentrantLock),
+  which is held by "indexer-worker-1"
+
+Java stack information for the threads listed above:
+===================================================
+"indexer-worker-1":
+	at com.example.indexer.ResourceA.acquire(LockA.java:42)
+	- waiting to lock <0x00000006d0000001> (a java.util.concurrent.locks.ReentrantLock)
+	- locked <0x00000006d0000002> (a java.util.concurrent.locks.ReentrantLock)
+"indexer-worker-2":
+	at com.example.indexer.ResourceB.acquire(LockB.java:55)
+	- waiting to lock <0x00000006d0000002> (a java.util.concurrent.locks.ReentrantLock)
+	- locked <0x00000006d0000001> (a java.util.concurrent.locks.ReentrantLock)
+
+Found 1 deadlock.

@@ -1,0 +1,13 @@
+ num     #instances         #bytes  class name (module)
+-------------------------------------------------------
+   1:        100000      800000000  [B
+   2:         50000      400000000  java.lang.String
+   3:          5100       81000000  com.example.cache.CacheEntry
+   4:         10000       80000000  java.util.HashMap$Node
+   5:         20000       40000000  java.util.concurrent.ConcurrentHashMap$Node
+   6:          1000       16000000  com.example.search.model.SearchResult
+   7:         80000        6400000  java.lang.Object[]
+   8:         40000        3200000  java.util.ArrayList
+   9:          2000        1600000  com.example.common.model.TenantContext
+  10:         15000        1200000  java.lang.Integer
+Total        323100     1429400000
