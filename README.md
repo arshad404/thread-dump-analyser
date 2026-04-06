@@ -27,7 +27,7 @@ cargo build --release
 
 | Command | Description |
 |---------|-------------|
-| `summary` ⭐ | **Start here.** Runs all analyzers and produces a ranked report with recommendations. |
+| `summary` | **Start here.** Runs all analyzers and produces a ranked report with recommendations. |
 | `threads` | Thread count by state + per-pool idle/active/blocked breakdown. |
 | `deadlock` | Detect deadlock cycles (uses jstack section + independent graph analysis). |
 | `contention` | Lock contention hotspots — BLOCKED threads grouped by the monitor they wait on. |
@@ -88,28 +88,16 @@ jmap -histo:live <pid> > build/dump/heap-histogram.txt
   ──────────────────────────────────────────────────────────────────────
   http-nio                                  100      12     88  💡 oversized
   my-search-worker                     20      18      2  ⚠ saturated
-  reactor-http-nio                           32       8     24  ✅ ok
-  scheduler                                   8       2      6  ✅ ok
+  reactor-http-nio                           32       8     24  ok
+  scheduler                                   8       2      6  ok
 
 ─── [3] Deadlock Detection ────────────────────────────────
-  ✅ No deadlocks detected
+   No deadlocks detected
 
 ─── [4] Lock Contention ───────────────────────────────────
-  ⚠️  5 threads blocked on ReentrantReadWriteLock <0x00000006c1a2b3c4>
+    5 threads blocked on ReentrantReadWriteLock <0x00000006c1a2b3c4>
        Owner: "indexer-worker-1" [RUNNABLE]
 
-════════════════════════════════════════════════════════════
-  FINDINGS SUMMARY
-════════════════════════════════════════════════════════════
-  🔴 CRITICAL (0)
-  ⚠️  WARNING  (2)
-  💡 INFO     (1)
-
-  ⚠️  my-search-worker pool is saturated (18/20 active)
-       → Run: tdanalyzer hot <file>
-  ⚠️  5 threads blocked on ReentrantReadWriteLock
-       → Run: tdanalyzer contention <file>
-  💡  http-nio pool may be oversized (88/100 idle)
 
 ════════════════════════════════════════════════════════════
   RECOMMENDED NEXT STEPS
@@ -123,12 +111,12 @@ jmap -histo:live <pid> > build/dump/heap-histogram.txt
 
 ## Severity Model
 
-| Symbol | Severity | Triggered by |
-|--------|----------|--------------|
-| 🔴 | CRITICAL | Deadlock detected, complete pool exhaustion |
-| ⚠️  | WARNING  | Lock contention, pool saturation ≥80%, large heap objects |
-| 💡 | INFO     | Oversized idle pools (≥80% idle, ≥10 threads), minor tuning opportunities |
-| ✅ | HEALTHY  | Analyzer ran clean |
+|Severity | Triggered by |
+|----------|--------------|
+|  CRITICAL | Deadlock detected, complete pool exhaustion |
+| WARNING  | Lock contention, pool saturation ≥80%, large heap objects |
+|  INFO     | Oversized idle pools (≥80% idle, ≥10 threads), minor tuning opportunities |
+|  HEALTHY  | Analyzer ran clean |
 
 ---
 
